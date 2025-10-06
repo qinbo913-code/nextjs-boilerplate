@@ -1,102 +1,135 @@
-import Image from "next/image";
-
 export default function Home() {
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900">
+      {/* Hero Section */}
+      <section className="container mx-auto px-6 py-20 md:py-32">
+        <div className="max-w-4xl mx-auto text-center">
+          {/* Avatar */}
+          <div className="mb-8 flex justify-center">
+            <div className="relative w-32 h-32 md:w-40 md:h-40 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 p-1 shadow-2xl transform hover:scale-105 transition-transform duration-300">
+              <div className="w-full h-full rounded-full bg-white dark:bg-slate-800 flex items-center justify-center text-6xl">
+                👨‍💼
+              </div>
+            </div>
+          </div>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+          {/* Name & Title */}
+          <h1 className="text-5xl md:text-6xl font-bold text-slate-900 dark:text-white mb-4 tracking-tight">
+            秦博
+          </h1>
+          <p className="text-xl md:text-2xl text-slate-600 dark:text-slate-300 mb-8">
+            15年央企工作经验 · 物贸业务经营专家
+          </p>
+          <div className="inline-flex items-center gap-2 px-6 py-3 bg-white dark:bg-slate-800 rounded-full shadow-lg">
+            <span className="text-slate-700 dark:text-slate-300">破局行动家</span>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
+      </section>
+
+      {/* About Section */}
+      <section className="container mx-auto px-6 py-16">
+        <div className="max-w-4xl mx-auto">
+          <div className="bg-white dark:bg-slate-800 rounded-3xl shadow-xl p-8 md:p-12 backdrop-blur-sm">
+            <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-3">
+              <span className="text-4xl">👤</span>
+              关于我
+            </h2>
+            <div className="space-y-4 text-slate-600 dark:text-slate-300 text-lg leading-relaxed">
+              <p>担任经营业务负责人多年，拥有丰富的从业经验</p>
+              <p>擅长解决经营问题、指导思路与方向</p>
+              <p>曾率领团队斩获<span className="font-semibold text-indigo-600 dark:text-indigo-400">100亿以上</span>经营承揽订单</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Skills Section */}
+      <section className="container mx-auto px-6 py-16">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-8 text-center flex items-center justify-center gap-3">
+            <span className="text-4xl">🎯</span>
+            专业技能
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {[
+              { icon: "📊", title: "高级经济师", desc: "专业经济管理资质" },
+              { icon: "⚖️", title: "企业合规师", desc: "企业合规管理专家" },
+              { icon: "🤖", title: "二级AI建筑师", desc: "人工智能应用专家" },
+              { icon: "🔧", title: "影刀二级证书", desc: "自动化工具认证" },
+            ].map((skill, index) => (
+              <div
+                key={index}
+                className="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-lg hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300"
+              >
+                <div className="text-4xl mb-3">{skill.icon}</div>
+                <h3 className="text-xl font-semibold text-slate-900 dark:text-white mb-2">
+                  {skill.title}
+                </h3>
+                <p className="text-slate-600 dark:text-slate-400">{skill.desc}</p>
+              </div>
+            ))}
+          </div>
+
+          {/* Additional Skill */}
+          <div className="mt-6 bg-gradient-to-r from-indigo-500 to-blue-500 rounded-2xl p-6 shadow-xl text-white">
+            <div className="flex items-center gap-4">
+              <span className="text-4xl">👥</span>
+              <div>
+                <h3 className="text-xl font-semibold mb-1">团队管理经验</h3>
+                <p className="text-indigo-100">丰富的经营管理团队经验</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Achievements Section */}
+      <section className="container mx-auto px-6 py-16">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-8 text-center flex items-center justify-center gap-3">
+            <span className="text-4xl">🏆</span>
+            主要成就
+          </h2>
+          <div className="space-y-6">
+            <div className="bg-white dark:bg-slate-800 rounded-2xl p-8 shadow-xl border-l-4 border-indigo-500">
+              <div className="flex items-start gap-4">
+                <span className="text-5xl">💼</span>
+                <div>
+                  <h3 className="text-2xl font-semibold text-slate-900 dark:text-white mb-3">
+                    百亿订单成就
+                  </h3>
+                  <p className="text-slate-600 dark:text-slate-300 text-lg">
+                    率领团队斩获100亿以上经营承揽订单
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-white dark:bg-slate-800 rounded-2xl p-8 shadow-xl border-l-4 border-blue-500">
+              <div className="flex items-start gap-4">
+                <span className="text-5xl">✍️</span>
+                <div>
+                  <h3 className="text-2xl font-semibold text-slate-900 dark:text-white mb-3">
+                    破局代写行动
+                  </h3>
+                  <p className="text-slate-600 dark:text-slate-300 text-lg">
+                    首月破6000元订单
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="container mx-auto px-6 py-12 text-center">
+        <div className="max-w-4xl mx-auto">
+          <div className="h-px bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-transparent mb-8"></div>
+          <p className="text-slate-600 dark:text-slate-400">
+            © 2025 秦博. 专注于物贸业务经营与发展
+          </p>
+        </div>
       </footer>
     </div>
   );
