@@ -1,11 +1,10 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  output: 'export',
+  // Vercel 部署不需要 output: 'export' 和 basePath
   images: {
     unoptimized: true,
   },
-  basePath: '/nextjs-boilerplate',
 };
 
 export default nextConfig;
