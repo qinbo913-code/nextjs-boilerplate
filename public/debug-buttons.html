@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>按钮调试</title>
+</head>
+<body>
+    <h1>按钮存在性检查</h1>
+    <div id="results"></div>
+
+    <script>
+        const buttonIds = [
+            // 步骤1
+            'step1NextBtn', 'step1SaveBtn', 'step1ResetBtn',
+            // 步骤2
+            'step2BackBtn', 'step2SaveBtn', 'step2ConfirmBtn', 'step2RegenerateBtn',
+            // 步骤3
+            'step3BackBtn', 'step3SaveBtn', 'step3ConfirmBtn', 'step3RegenerateBtn',
+            // 步骤4
+            'step4BackBtn', 'step4SaveBtn', 'step4ConfirmBtn', 'step4RegenerateBtn',
+            // 步骤5
+            'step5BackBtn', 'writeChapterBtn', 'viewContextBtn', 'suggestDirectionBtn',
+            'continueBtn', 'expandChapterBtn', 'checkChapterBtn',
+            'copyChapterBtn', 'downloadChapterBtn', 'downloadAllBtn',
+            // 页脚按钮
+            'openReferenceBtn', 'openToolsBtn', 'openBrainstormBtn',
+            'openAIAnalysisBtn', 'openCharacterStatsBtn', 'openDataManagerBtn'
+        ];
+
+        const results = document.getElementById('results');
+        let html = '<ul>';
+
+        buttonIds.forEach(id => {
+            const element = parent.document.getElementById(id);
+            const exists = element !== null;
+            const color = exists ? 'green' : 'red';
+            const status = exists ? '✓ 存在' : '✗ 不存在';
+            html += `<li style="color: ${color}"><strong>${id}</strong>: ${status}</li>`;
+        });
+
+        html += '</ul>';
+        results.innerHTML = html;
+    </script>
+</body>
+</html>
