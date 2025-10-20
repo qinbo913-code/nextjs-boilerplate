@@ -3,7 +3,7 @@ let currentApiProvider = localStorage.getItem('api_provider') || 'claude';
 let apiConfigs = {
     claude: {
         key: localStorage.getItem('claude_api_key') || '',
-        model: localStorage.getItem('claude_model') || 'claude-3-5-sonnet-20241022'
+        model: localStorage.getItem('claude_model') || 'claude-3-5-sonnet-20250219'
     },
     gemini: {
         key: localStorage.getItem('gemini_api_key') || '',
@@ -15,7 +15,7 @@ let apiConfigs = {
     },
     relay: {
         key: localStorage.getItem('relay_api_key') || 'sk-6RyydCKCE0KAWFvqhESbv4Ld5MfyGNInTfzsmTXimqdZuFRH',
-        model: localStorage.getItem('relay_model') || 'claude-3-5-sonnet-20241022',
+        model: localStorage.getItem('relay_model') || 'claude-3-5-sonnet-20250219',
         url: 'https://code.wenwen-ai.com'
     }
 };
