@@ -1,9 +1,17 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // Vercel 部署不需要 output: 'export' 和 basePath
   images: {
     unoptimized: true,
+  },
+  // 配置重写规则，让根路径提供静态 HTML
+  async rewrites() {
+    return [
+      {
+        source: '/',
+        destination: '/index.html',
+      },
+    ];
   },
 };
 
