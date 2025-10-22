@@ -1334,7 +1334,16 @@ function loadProgress() {
     try {
         const saved = localStorage.getItem('novel_data');
         if (saved) {
-            novelData = JSON.parse(saved);
+            const loadedData = JSON.parse(saved);
+            // 确保所有必需字段都存在
+            novelData = {
+                settings: loadedData.settings || {},
+                plan: loadedData.plan || '',
+                characters: loadedData.characters || [],
+                characterStats: loadedData.characterStats || {},
+                outline: loadedData.outline || [],
+                chapters: loadedData.chapters || {}
+            };
 
             // 恢复步骤1的设定
             if (novelData.settings) {
