@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI小说生成器 - 博哥写作助手</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- PDF.js 库 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎭 AI智能小说生成器</h1>
+            <p class="subtitle">我是博哥，你的专业写作助手 - 20年创作经验，累计阅读量50亿+</p>
+        </header>
+
+        <!-- 进度指示器 -->
+        <div class="progress-container">
+            <div class="progress-step active" data-step="1">
+                <div class="step-number">1</div>
+                <div class="step-label">基础设定</div>
+            </div>
+            <div class="progress-step" data-step="2">
+                <div class="step-number">2</div>
+                <div class="step-label">方案确认</div>
+            </div>
+            <div class="progress-step" data-step="3">
+                <div class="step-number">3</div>
+                <div class="step-label">角色开发</div>
+            </div>
+            <div class="progress-step" data-step="4">
+                <div class="step-number">4</div>
+                <div class="step-label">目录生成</div>
+            </div>
+            <div class="progress-step" data-step="5">
+                <div class="step-number">5</div>
+                <div class="step-label">章节创作</div>
+            </div>
+        </div>
+
+        <main>
+            <!-- 步骤1: 基础设定 -->
+            <div class="step-content active" id="step1">
+                <div class="input-section">
+                    <h2>📝 第一步：基础设定</h2>
+                    <p class="step-intro">让我们开始创作小说吧！首先，请告诉我小说的核心设定。</p>
+
+                    <div class="form-group">
+                        <label>A. 小说类型（可多选1-2个）：</label>
+                        <div class="checkbox-group">
+                            <label class="checkbox-label"><input type="checkbox" name="genre" value="青春"> 青春[成长/校园]</label>
+                            <label class="checkbox-label"><input type="checkbox" name="genre" value="言情"> 言情[感情/爱情]</label>
+                            <label class="checkbox-label"><input type="checkbox" name="genre" value="历史"> 历史[古代/架空]</label>
+                            <label class="checkbox-label"><input type="checkbox" name="genre" value="悬疑"> 悬疑[推理/谜案]</label>
+                            <label class="checkbox-label"><input type="checkbox" name="genre" value="穿越"> 穿越[异界/重生]</label>
+                            <label class="checkbox-label"><input type="checkbox" name="genre" value="玄幻"> 玄幻[超凡/异能]</label>
+                            <label class="checkbox-label"><input type="checkbox" name="genre" value="修真"> 修真[仙侠/长生]</label>
+                            <label class="checkbox-label"><input type="checkbox" name="genre" value="军事"> 军事[战争/军旅]</label>
+                            <label class="checkbox-label"><input type="checkbox" name="genre" value="都市"> 都市[职场/生活]</label>
+                            <label class="checkbox-label"><input type="checkbox" name="genre" value="同人"> 同人[衍生/重构]</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>B. 故事基调（选择1个）：</label>
+                        <div class="radio-group">
+                            <label class="radio-label"><input type="radio" name="tone" value="喜剧"> 喜剧[欢快]</label>
+                            <label class="radio-label"><input type="radio" name="tone" value="悲剧"> 悲剧[虐心]</label>
+                            <label class="radio-label"><input type="radio" name="tone" value="正剧"> 正剧[严肃]</label>
+                            <label class="radio-label"><input type="radio" name="tone" value="轻松"> 轻松[休闲]</label>
+                            <label class="radio-label"><input type="radio" name="tone" value="爆笑"> 爆笑[搞怪]</label>
+                            <label class="radio-label"><input type="radio" name="tone" value="暗黑"> 暗黑[阴郁]</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>C. 结局类型（选择1个）：</label>
+                        <div class="radio-group">
+                            <label class="radio-label"><input type="radio" name="ending" value="圆满"> 圆满[喜结]</label>
+                            <label class="radio-label"><input type="radio" name="ending" value="悲剧"> 悲剧[遗憾]</label>
+                            <label class="radio-label"><input type="radio" name="ending" value="开放"> 开放[余地]</label>
+                            <label class="radio-label"><input type="radio" name="ending" value="反转"> 反转[意外]</label>
+                            <label class="radio-label"><input type="radio" name="ending" value="循环"> 循环[首尾]</label>
+                            <label class="radio-label"><input type="radio" name="ending" value="模糊"> 模糊[迷离]</label>
+                            <label class="radio-label"><input type="radio" name="ending" value="希望"> 希望[向上]</label>
+                            <label class="radio-label"><input type="radio" name="ending" value="悬念"> 悬念[谜团]</label>
+                            <label class="radio-label"><input type="radio" name="ending" value="象征"> 象征[寓意]</label>
+                            <label class="radio-label"><input type="radio" name="ending" value="现实"> 现实[写实]</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>D. 叙事视角（选择1个）：</label>
+                        <div class="radio-group">
+                            <label class="radio-label"><input type="radio" name="perspective" value="第一人称"> 第一人称[代入感强]</label>
+                            <label class="radio-label"><input type="radio" name="perspective" value="第三人称全知"> 第三人称全知[视角全面]</label>
+                            <label class="radio-label"><input type="radio" name="perspective" value="第三人称限制"> 第三人称限制[聚焦特定]</label>
+                            <label class="radio-label"><input type="radio" name="perspective" value="多视角"> 多视角[多角度]</label>
+                            <label class="radio-label"><input type="radio" name="perspective" value="旁观者"> 旁观者[局外人]</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="coreTheme">核心主题与创意：</label>
+                        <textarea id="coreTheme" rows="4" placeholder="请描述你想创作的小说核心主题和独特创意..."></textarea>
+                    </div>
+
+                    <div class="button-group">
+                        <button id="step1NextBtn" class="btn btn-primary">下一步：生成创作方案 →</button>
+                        <button id="step1SaveBtn" class="btn btn-success">💾 保存设定</button>
+                        <button id="step1ResetBtn" class="btn btn-secondary">🔄 重置</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 步骤2: 方案确认 -->
+            <div class="step-content" id="step2">
+                <div class="plan-section">
+                    <h2>📋 第二步：创作方案确认</h2>
+                    <div class="editable-hint">
+                        <p>💡 提示：您可以直接点击内容区域编辑方案，修改后会自动保存</p>
+                    </div>
+                    <div id="planContent" class="plan-content" contenteditable="true"></div>
+                    <div class="button-group">
+                        <button id="step2BackBtn" class="btn btn-secondary">← 返回修改</button>
+                        <button id="step2SaveBtn" class="btn btn-success">💾 保存方案</button>
+                        <button id="step2ConfirmBtn" class="btn btn-success">✅ 确认方案</button>
+                        <button id="step2RegenerateBtn" class="btn btn-primary">🔄 重新生成方案</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 步骤3: 角色开发 -->
+            <div class="step-content" id="step3">
+                <div class="character-section">
+                    <h2>👥 第三步：角色开发</h2>
+                    <div class="editable-hint">
+                        <p>💡 提示：您可以直接点击内容区域编辑角色，修改后会自动保存</p>
+                    </div>
+                    <div id="characterContent" class="character-content" contenteditable="true"></div>
+                    <div class="button-group">
+                        <button id="step3BackBtn" class="btn btn-secondary">← 返回上一步</button>
+                        <button id="step3SaveBtn" class="btn btn-success">💾 保存角色</button>
+                        <button id="step3ConfirmBtn" class="btn btn-success">✅ 确认角色</button>
+                        <button id="step3RegenerateBtn" class="btn btn-primary">🔄 重新生成角色</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 步骤4: 目录生成 -->
+            <div class="step-content" id="step4">
+                <div class="outline-section">
+                    <h2>📚 第四步：章节目录</h2>
+                    <div class="editable-hint">
+                        <p>💡 提示：您可以直接点击内容区域编辑目录，修改后会自动保存</p>
+                    </div>
+                    <div id="outlineContent" class="outline-content" contenteditable="true"></div>
+                    <div class="button-group">
+                        <button id="step4BackBtn" class="btn btn-secondary">← 返回上一步</button>
+                        <button id="step4SaveBtn" class="btn btn-success">💾 保存目录</button>
+                        <button id="step4ConfirmBtn" class="btn btn-success">✅ 确认目录</button>
+                        <button id="step4RegenerateBtn" class="btn btn-primary">🔄 重新生成目录</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 步骤5: 章节创作 -->
+            <div class="step-content" id="step5">
+                <div class="writing-interface">
+                    <div class="writing-sidebar">
+                        <h3>📖 章节列表</h3>
+                        <div id="chapterList" class="chapter-list"></div>
+                    </div>
+                    <div class="writing-main">
+                        <h2>✍️ 第五步：章节创作</h2>
+                        <div class="chapter-controls">
+                            <select id="chapterSelect" class="form-control">
+                                <option value="">选择要创作的章节...</option>
+                            </select>
+                            <button id="writeChapterBtn" class="btn btn-primary">✨ 创作本章</button>
+                            <button id="viewContextBtn" class="btn btn-info">📚 查看上下文</button>
+                            <button id="suggestDirectionBtn" class="btn btn-info">💡 续写建议</button>
+                            <button id="continueBtn" class="btn btn-success">▶️ 继续下一章</button>
+                            <button id="expandChapterBtn" class="btn btn-info">📝 扩写本章</button>
+                            <button id="checkChapterBtn" class="btn btn-info">🔍 一键检查</button>
+                        </div>
+                        <div id="chapterOutput" class="chapter-output">
+                            <div class="placeholder">
+                                <p>请选择章节开始创作，或点击"继续下一章"按钮</p>
+                            </div>
+                        </div>
+
+                        <!-- 智能调整输入框 -->
+                        <div class="adjustment-panel" id="adjustmentPanel" style="display: none;">
+                            <div class="adjustment-header">
+                                <span>💬 智能调整 - 输入您的修改要求</span>
+                                <button id="toggleAdjustmentBtn" class="btn-icon">📌</button>
+                            </div>
+                            <div class="adjustment-input-container">
+                                <textarea
+                                    id="adjustmentInput"
+                                    placeholder="输入您的调整要求，例如：&#10;- 修正第3段的逻辑错误&#10;- 优化主角的对话，使其更符合性格&#10;- 增强第5段的情感描写&#10;- 调整情节节奏，使其更紧凑&#10;&#10;支持复制粘贴，按Ctrl+Enter或点击发送按钮提交"
+                                    rows="3"></textarea>
+                                <div class="adjustment-actions">
+                                    <button id="sendAdjustmentBtn" class="btn btn-primary">
+                                        <span>✨ 发送调整</span>
+                                        <small>Ctrl+Enter</small>
+                                    </button>
+                                    <button id="clearAdjustmentBtn" class="btn btn-secondary btn-small">清空</button>
+                                </div>
+                            </div>
+                            <div class="adjustment-history" id="adjustmentHistory" style="display: none;">
+                                <div class="history-header">📜 调整历史</div>
+                                <div class="history-list" id="historyList"></div>
+                            </div>
+                        </div>
+
+                        <div class="chapter-actions">
+                            <button id="copyChapterBtn" class="btn btn-small" disabled>📋 复制</button>
+                            <button id="downloadChapterBtn" class="btn btn-small" disabled>💾 下载本章</button>
+                            <button id="downloadAllBtn" class="btn btn-small">📥 下载全部</button>
+                            <button id="step5BackBtn" class="btn btn-secondary">← 返回修改目录</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 加载指示器 -->
+            <div id="loadingIndicator" class="loading" style="display: none;">
+                <div class="spinner"></div>
+                <p id="loadingText">AI正在思考中，请稍候...</p>
+            </div>
+        </main>
+
+        <footer>
+            <p>Powered by Claude AI - 博哥写作助手 | 双击此处配置API密钥 | <button id="openReferenceBtn" class="footer-btn">📚 参考库</button> | <button id="openToolsBtn" class="footer-btn">🎨 创意工具</button> | <button id="openBrainstormBtn" class="footer-btn">🧠 头脑风暴</button> | <button id="openAIAnalysisBtn" class="footer-btn">🔍 AI拆书</button> | <button id="openCharacterStatsBtn" class="footer-btn">📊 角色数据</button> | <button id="openDataManagerBtn" class="footer-btn">💾 数据管理</button></p>
+        </footer>
+    </div>
+
+    <!-- API配置模态框 -->
+    <div id="apiModal" class="modal">
+        <div class="modal-content api-config-modal">
+            <h3>⚙️ API配置</h3>
+            <p>选择AI提供商并配置相应的API密钥</p>
+
+            <div class="form-group">
+                <label for="apiProvider">AI提供商：</label>
+                <select id="apiProvider" class="form-control">
+                    <option value="claude">Claude (Anthropic)</option>
+                    <option value="gemini">Gemini (Google)</option>
+                    <option value="kimi">Kimi (Moonshot AI)</option>
+                    <option value="relay">API中转站 (Claude)</option>
+                </select>
+            </div>
+
+            <div id="apiProviderInfo" class="api-info">
+                <p class="info-text">请选择AI提供商查看配置说明</p>
+            </div>
+
+            <!-- Claude 配置 -->
+            <div class="api-config-section active" id="claudeConfig">
+                <div class="form-group">
+                    <label for="claudeApiKey">Claude API密钥：</label>
+                    <input type="password" id="claudeApiKey" placeholder="sk-ant-...">
+                    <small class="hint-text">获取地址: <a href="https://console.anthropic.com/" target="_blank">console.anthropic.com</a></small>
+                </div>
+                <div class="form-group">
+                    <label for="claudeModel">模型选择：</label>
+                    <select id="claudeModel" class="form-control">
+                        <option value="claude-3-5-sonnet-20250219">Claude 3.5 Sonnet (2025-02-19 推荐)</option>
+                        <option value="claude-3-7-sonnet-20250219">Claude 3.7 Sonnet (2025-02-19 最强)</option>
+                        <option value="claude-3-5-sonnet-20241022">Claude 3.5 Sonnet (2024-10-22 旧版)</option>
+                        <option value="claude-3-opus-20240229">Claude 3 Opus (最强旧版)</option>
+                        <option value="claude-3-haiku-20240307">Claude 3 Haiku (最快)</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Gemini 配置 -->
+            <div class="api-config-section" id="geminiConfig">
+                <div class="form-group">
+                    <label for="geminiApiKey">Gemini API密钥：</label>
+                    <input type="password" id="geminiApiKey" placeholder="AIza...">
+                    <small class="hint-text">获取地址: <a href="https://makersuite.google.com/app/apikey" target="_blank">Google AI Studio</a></small>
+                </div>
+                <div class="form-group">
+                    <label for="geminiModel">模型选择：</label>
+                    <select id="geminiModel" class="form-control">
+                        <option value="gemini-2.0-flash-exp">Gemini 2.0 Flash Exp (实验版)</option>
+                        <option value="gemini-2.0-flash-thinking-exp-01-21">Gemini 2.0 Flash Thinking (推理模式)</option>
+                        <option value="gemini-1.5-pro">Gemini 1.5 Pro (稳定强大)</option>
+                        <option value="gemini-1.5-flash">Gemini 1.5 Flash (快速)</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Kimi 配置 -->
+            <div class="api-config-section" id="kimiConfig">
+                <div class="form-group">
+                    <label for="kimiApiKey">Kimi API密钥：</label>
+                    <input type="password" id="kimiApiKey" placeholder="sk-...">
+                    <small class="hint-text">获取地址: <a href="https://platform.moonshot.cn/" target="_blank">platform.moonshot.cn</a></small>
+                </div>
+                <div class="form-group">
+                    <label for="kimiModel">模型选择：</label>
+                    <select id="kimiModel" class="form-control">
+                        <option value="moonshot-v1-128k">Moonshot v1 128K (推荐)</option>
+                        <option value="moonshot-v1-32k">Moonshot v1 32K</option>
+                        <option value="moonshot-v1-8k">Moonshot v1 8K</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- API中转站配置 -->
+            <div class="api-config-section" id="relayConfig">
+                <div class="form-group">
+                    <label for="relayApiKey">API密钥：</label>
+                    <input type="password" id="relayApiKey" placeholder="sk-..." value="sk-6RyydCKCE0KAWFvqhESbv4Ld5MfyGNInTfzsmTXimqdZuFRH">
+                    <small class="hint-text">中转站地址: https://code.wenwen-ai.com</small>
+                </div>
+                <div class="form-group">
+                    <label for="relayModel">模型选择：</label>
+                    <select id="relayModel" class="form-control">
+                        <option value="claude-3-5-sonnet-20250219">Claude 3.5 Sonnet (2025-02-19 推荐)</option>
+                        <option value="claude-3-7-sonnet-20250219">Claude 3.7 Sonnet (2025-02-19 最强)</option>
+                        <option value="claude-3-5-sonnet-20241022">Claude 3.5 Sonnet (2024-10-22 旧版)</option>
+                        <option value="claude-3-opus-20240229">Claude 3 Opus (最强旧版)</option>
+                        <option value="claude-3-haiku-20240307">Claude 3 Haiku (最快)</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="modal-buttons">
+                <button id="saveApiBtn" class="btn btn-primary">💾 保存配置</button>
+                <button id="testApiBtn" class="btn btn-success">🧪 测试连接</button>
+                <button id="closeModalBtn" class="btn btn-secondary">取消</button>
+            </div>
+
+            <p class="hint">API密钥将保存在本地浏览器中，不会上传到任何服务器</p>
+        </div>
+    </div>
+
+    <!-- 数据管理模态框 -->
+    <div id="dataModal" class="modal">
+        <div class="modal-content data-manager-modal">
+            <h3>💾 数据管理中心</h3>
+            <p>管理您的小说创作数据，支持查看、导出、导入和备份</p>
+
+            <!-- 存储信息 -->
+            <div class="storage-info">
+                <h4>📍 数据存储位置</h4>
+                <div class="info-card">
+                    <div class="info-item">
+                        <span class="info-label">💿 LocalStorage：</span>
+                        <span class="info-value">浏览器本地存储（novel_data）</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">📦 IndexedDB：</span>
+                        <span class="info-value">浏览器数据库（PDF参考库）</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">💾 当前数据大小：</span>
+                        <span class="info-value" id="dataSize">计算中...</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">📊 创作进度：</span>
+                        <span class="info-value" id="progressInfo">未开始</span>
+                    </div>
+                </div>
+                <div class="backup-location-hint">
+                    💡 <strong>建议备份位置：</strong>D:\小说网站\数据备份
+                </div>
+            </div>
+
+            <!-- 快捷操作 -->
+            <div class="quick-actions">
+                <h4>⚡ 快捷操作</h4>
+                <div class="action-grid">
+                    <button id="viewDataBtn" class="btn btn-info">👁️ 查看数据</button>
+                    <button id="exportJsonBtn" class="btn btn-primary">📤 导出JSON</button>
+                    <button id="importJsonBtn" class="btn btn-success">📥 导入JSON</button>
+                    <button id="backupDataBtn" class="btn btn-warning">💾 备份数据</button>
+                </div>
+            </div>
+
+            <!-- 数据详情 -->
+            <div id="dataDetails" class="data-details" style="display: none;">
+                <h4>📋 数据详情</h4>
+                <div class="data-summary">
+                    <div class="summary-item">
+                        <strong>基础设定：</strong>
+                        <span id="settingsStatus">-</span>
+                    </div>
+                    <div class="summary-item">
+                        <strong>创作方案：</strong>
+                        <span id="planStatus">-</span>
+                    </div>
+                    <div class="summary-item">
+                        <strong>角色信息：</strong>
+                        <span id="charactersStatus">-</span>
+                    </div>
+                    <div class="summary-item">
+                        <strong>章节目录：</strong>
+                        <span id="outlineStatus">-</span>
+                    </div>
+                    <div class="summary-item">
+                        <strong>已创作章节：</strong>
+                        <span id="chaptersStatus">-</span>
+                    </div>
+                    <div class="summary-item">
+                        <strong>PDF参考库：</strong>
+                        <span id="pdfStatus">-</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 高级操作 -->
+            <div class="advanced-actions">
+                <h4>⚙️ 高级操作</h4>
+                <div class="action-grid">
+                    <button id="clearProgressBtn" class="btn btn-danger">🗑️ 清空进度</button>
+                    <button id="resetAllBtn" class="btn btn-danger">⚠️ 重置全部</button>
+                </div>
+                <p class="warning-text">⚠️ 危险操作：清空进度会删除所有创作内容，重置全部会删除包括API配置在内的所有数据</p>
+            </div>
+
+            <!-- 隐藏的文件输入 -->
+            <input type="file" id="importFileInput" accept=".json" style="display: none;">
+
+            <div class="modal-buttons">
+                <button id="closeDataModalBtn" class="btn btn-secondary">关闭</button>
+            </div>
+
+            <p class="hint">💡 建议定期导出备份数据，避免浏览器清理导致数据丢失</p>
+        </div>
+    </div>
+
+    <!-- PDF参考库模态框 -->
+    <div id="referenceModal" class="modal">
+        <div class="modal-content reference-modal">
+            <h3>📚 写作参考库</h3>
+            <p>上传PDF文件作为小说创作的参考资料（如写作指南、情节模板、角色设定等）</p>
+
+            <!-- 上传区域 -->
+            <div class="upload-area">
+                <div class="upload-box" id="uploadBox">
+                    <div class="upload-icon">📄</div>
+                    <p class="upload-text">拖拽PDF文件到此处，或点击上传</p>
+                    <input type="file" id="pdfFileInput" accept=".pdf" multiple style="display: none;">
+                    <button class="btn btn-primary" id="selectPdfBtn">选择PDF文件</button>
+                </div>
+            </div>
+
+            <!-- PDF列表 -->
+            <div class="reference-list">
+                <h4>📖 已上传的参考资料 (<span id="pdfCount">0</span>)</h4>
+                <div id="pdfListContainer" class="pdf-list-container">
+                    <div class="empty-state">
+                        <p>还没有上传任何参考资料</p>
+                        <p class="hint-text">上传PDF文件后，创作时会自动引用相关内容</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 选项设置 -->
+            <div class="reference-options">
+                <label class="checkbox-option">
+                    <input type="checkbox" id="enableReference" checked>
+                    <span>在创作时自动引用参考库内容</span>
+                </label>
+                <label class="checkbox-option">
+                    <input type="checkbox" id="smartReference" checked>
+                    <span>智能匹配相关内容（仅引用与当前创作相关的部分）</span>
+                </label>
+            </div>
+
+            <div class="modal-buttons">
+                <button id="closeReferenceBtn" class="btn btn-secondary">关闭</button>
+                <button id="clearAllPdfsBtn" class="btn btn-danger">🗑️ 清空全部</button>
+            </div>
+
+            <p class="hint">PDF文件存储在浏览器本地，不会上传到服务器</p>
+        </div>
+    </div>
+
+    <!-- 头脑风暴模态框 -->
+    <div id="brainstormModal" class="modal">
+        <div class="modal-content brainstorm-modal">
+            <h3>🧠 头脑风暴工具集</h3>
+            <p>使用AI生成世界架构、角色设定、物品、地名等创作元素</p>
+
+            <div class="brainstorm-tabs">
+                <button class="tab-btn active" data-tab="world">🌍 世界架构</button>
+                <button class="tab-btn" data-tab="naming">📝 取名工具</button>
+                <button class="tab-btn" data-tab="item">⚔️ 物品设定</button>
+                <button class="tab-btn" data-tab="location">🏰 地方设定</button>
+                <button class="tab-btn" data-tab="plot">📖 剧情节点</button>
+            </div>
+
+            <!-- 世界架构生成器 -->
+            <div class="tab-content active" id="worldTab">
+                <h4>🌍 世界架构生成器</h4>
+                <div class="form-group">
+                    <label>小说类型：</label>
+                    <select id="worldType" class="form-control">
+                        <option value="玄幻">玄幻</option>
+                        <option value="仙侠">仙侠</option>
+                        <option value="科幻">科幻</option>
+                        <option value="奇幻">奇幻</option>
+                        <option value="武侠">武侠</option>
+                        <option value="都市">都市</option>
+                        <option value="历史">历史</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>核心设定：</label>
+                    <textarea id="worldConcept" rows="3" placeholder="例如：修真世界，以编程为修炼体系..."></textarea>
+                </div>
+                <button id="generateWorldBtn" class="btn btn-primary">生成世界架构</button>
+                <div id="worldOutput" class="tool-output"></div>
+            </div>
+
+            <!-- 取名工具 -->
+            <div class="tab-content" id="namingTab">
+                <h4>📝 智能取名工具</h4>
+                <div class="form-group">
+                    <label>命名类型：</label>
+                    <div class="radio-group">
+                        <label class="radio-label"><input type="radio" name="nameType" value="character" checked> 角色名</label>
+                        <label class="radio-label"><input type="radio" name="nameType" value="location"> 地名</label>
+                        <label class="radio-label"><input type="radio" name="nameType" value="item"> 物品名</label>
+                        <label class="radio-label"><input type="radio" name="nameType" value="skill"> 技能/功法名</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>风格设定：</label>
+                    <select id="nameStyle" class="form-control">
+                        <option value="古风">古风</option>
+                        <option value="现代">现代</option>
+                        <option value="西方">西方奇幻</option>
+                        <option value="日式">日式</option>
+                        <option value="霸气">霸气</option>
+                        <option value="清新">清新</option>
+                        <option value="神秘">神秘</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>相关描述：</label>
+                    <textarea id="nameDescription" rows="3" placeholder="例如：主角，男性，冷酷孤傲的剑修..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label>生成数量：</label>
+                    <input type="number" id="nameCount" min="5" max="20" value="10" class="form-control">
+                </div>
+                <button id="generateNameBtn" class="btn btn-primary">生成名称</button>
+                <div id="nameOutput" class="tool-output"></div>
+            </div>
+
+            <!-- 物品设定生成器 -->
+            <div class="tab-content" id="itemTab">
+                <h4>⚔️ 物品设定生成器</h4>
+                <div class="form-group">
+                    <label>物品类型：</label>
+                    <select id="itemType" class="form-control">
+                        <option value="武器">武器</option>
+                        <option value="防具">防具</option>
+                        <option value="法宝">法宝</option>
+                        <option value="丹药">丹药</option>
+                        <option value="秘籍">秘籍</option>
+                        <option value="奇物">奇物</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>核心特点：</label>
+                    <textarea id="itemConcept" rows="3" placeholder="例如：上古神剑，可吞噬敌人功力..."></textarea>
+                </div>
+                <button id="generateItemBtn" class="btn btn-primary">生成物品设定</button>
+                <div id="itemOutput" class="tool-output"></div>
+            </div>
+
+            <!-- 地方设定生成器 -->
+            <div class="tab-content" id="locationTab">
+                <h4>🏰 地方设定生成器</h4>
+                <div class="form-group">
+                    <label>地方类型：</label>
+                    <select id="locationType" class="form-control">
+                        <option value="城市">城市</option>
+                        <option value="门派">门派/组织</option>
+                        <option value="秘境">秘境/遗迹</option>
+                        <option value="区域">特殊区域</option>
+                        <option value="建筑">重要建筑</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>核心特点：</label>
+                    <textarea id="locationConcept" rows="3" placeholder="例如：修真界第一大城，繁华但暗流涌动..."></textarea>
+                </div>
+                <button id="generateLocationBtn" class="btn btn-primary">生成地方设定</button>
+                <div id="locationOutput" class="tool-output"></div>
+            </div>
+
+            <!-- 剧情节点生成器 -->
+            <div class="tab-content" id="plotTab">
+                <h4>📖 剧情节点生成器</h4>
+                <div class="form-group">
+                    <label>当前情况：</label>
+                    <textarea id="plotCurrent" rows="3" placeholder="描述当前剧情进展和主角状态..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label>期望方向：</label>
+                    <textarea id="plotDirection" rows="3" placeholder="希望剧情朝什么方向发展..."></textarea>
+                </div>
+                <button id="generatePlotBtn" class="btn btn-primary">生成剧情节点</button>
+                <div id="plotOutput" class="tool-output"></div>
+            </div>
+
+            <div class="modal-buttons">
+                <button id="closeBrainstormBtn" class="btn btn-secondary">关闭</button>
+                <button id="copyBrainstormBtn" class="btn btn-small" disabled>📋 复制结果</button>
+            </div>
+
+            <p class="hint">头脑风暴结果可用于丰富小说世界观和情节设定</p>
+        </div>
+    </div>
+
+    <!-- 创意工具箱模态框 -->
+    <div id="toolsModal" class="modal">
+        <div class="modal-content tools-modal">
+            <h3>🎨 创意工具箱</h3>
+            <p>使用AI生成书名、简介等创作元素</p>
+
+            <div class="tools-container">
+                <!-- 书名生成器 -->
+                <div class="tool-section">
+                    <h4>📖 书名生成器</h4>
+                    <div class="form-group">
+                        <label>小说类型和主题：</label>
+                        <textarea id="titleThemeInput" rows="3" placeholder="例如：玄幻穿越小说，主角是程序员穿越到修真世界..."></textarea>
+                    </div>
+                    <button id="generateTitleBtn" class="btn btn-primary">生成书名</button>
+                    <div id="titleOutput" class="tool-output"></div>
+                </div>
+
+                <!-- 简介生成器 -->
+                <div class="tool-section">
+                    <h4>📝 简介生成器</h4>
+                    <div class="form-group">
+                        <label>书名：</label>
+                        <input type="text" id="synopsisTitle" placeholder="输入书名">
+                    </div>
+                    <div class="form-group">
+                        <label>核心设定：</label>
+                        <textarea id="synopsisThemeInput" rows="4" placeholder="描述小说的核心设定、主角、主要情节等..."></textarea>
+                    </div>
+                    <button id="generateSynopsisBtn" class="btn btn-primary">生成简介</button>
+                    <div id="synopsisOutput" class="tool-output"></div>
+                </div>
+            </div>
+
+            <div class="modal-buttons">
+                <button id="closeToolsBtn" class="btn btn-secondary">关闭</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- AI拆书模态框 -->
+    <div id="aiAnalysisModal" class="modal">
+        <div class="modal-content analysis-modal">
+            <h3>🔍 AI拆书分析</h3>
+            <p>粘贴参考小说片段，AI将分析其结构、技巧并提取创意灵感</p>
+
+            <div class="form-group">
+                <label>参考小说内容：</label>
+                <textarea id="analysisInput" rows="12" placeholder="粘贴你想要分析的小说片段（可以是开头、情节、对话等）..."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>分析类型：</label>
+                <div class="radio-group">
+                    <label class="radio-label"><input type="radio" name="analysisType" value="structure" checked> 结构分析</label>
+                    <label class="radio-label"><input type="radio" name="analysisType" value="technique"> 写作技巧</label>
+                    <label class="radio-label"><input type="radio" name="analysisType" value="creativity"> 创意提取</label>
+                    <label class="radio-label"><input type="radio" name="analysisType" value="comprehensive"> 综合分析</label>
+                </div>
+            </div>
+
+            <button id="analyzeBtn" class="btn btn-primary">🔍 开始分析</button>
+
+            <div id="analysisOutput" class="analysis-output"></div>
+
+            <div class="modal-buttons">
+                <button id="closeAnalysisBtn" class="btn btn-secondary">关闭</button>
+                <button id="copyAnalysisBtn" class="btn btn-small" disabled>📋 复制分析结果</button>
+            </div>
+
+            <p class="hint">分析结果可作为创作参考，帮助你理解优秀作品的创作方法</p>
+        </div>
+    </div>
+
+    <!-- 一键检查模态框 -->
+    <div id="checkModal" class="modal">
+        <div class="modal-content check-modal">
+            <h3>🔍 章节质量检查</h3>
+            <p>对已创作章节进行全面质量检查，生成详细报告和修改建议</p>
+
+            <div class="check-options">
+                <label class="checkbox-option">
+                    <input type="checkbox" id="checkCharacter" checked>
+                    <span>👤 人物塑造检查（行为合理性、对话真实性等）</span>
+                </label>
+                <label class="checkbox-option">
+                    <input type="checkbox" id="checkConsistency" checked>
+                    <span>📋 内容一致性检查（逻辑一致性、细节一致性等）</span>
+                </label>
+                <label class="checkbox-option">
+                    <input type="checkbox" id="checkPlot" checked>
+                    <span>📖 情节控制检查（节奏把控、剧情完整性等）</span>
+                </label>
+                <label class="checkbox-option">
+                    <input type="checkbox" id="checkAtmosphere" checked>
+                    <span>🌟 氛围营造检查（场景描写、情感渲染等）</span>
+                </label>
+            </div>
+
+            <button id="startCheckBtn" class="btn btn-primary">🔍 开始检查</button>
+
+            <div id="checkOutput" class="check-output"></div>
+
+            <div class="modal-buttons">
+                <button id="closeCheckBtn" class="btn btn-secondary">关闭</button>
+                <button id="copyCheckBtn" class="btn btn-small" disabled>📋 复制检查报告</button>
+            </div>
+
+            <p class="hint">检查报告将帮助你发现问题并在后续创作中改进</p>
+        </div>
+    </div>
+
+    <!-- 上下文信息模态框 -->
+    <div id="contextModal" class="modal">
+        <div class="modal-content context-modal">
+            <h3>📚 章节创作上下文信息</h3>
+            <p>查看当前章节创作时AI将使用的完整上下文信息</p>
+
+            <div class="context-sections">
+                <!-- 故事进度 -->
+                <div class="context-section">
+                    <h4>📊 故事进度</h4>
+                    <div class="context-content">
+                        <div class="info-item">
+                            <strong>当前章节：</strong>
+                            <span id="contextCurrentChapter">-</span>
+                        </div>
+                        <div class="info-item">
+                            <strong>总章节数：</strong>
+                            <span id="contextTotalChapters">-</span>
+                        </div>
+                        <div class="info-item">
+                            <strong>已创作：</strong>
+                            <span id="contextCreatedChapters">-</span>
+                        </div>
+                        <div class="info-item">
+                            <strong>故事阶段：</strong>
+                            <span id="contextStoryPhase">-</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 核心设定 -->
+                <div class="context-section">
+                    <h4>⚙️ 核心设定</h4>
+                    <div class="context-content" id="contextSettings">
+                        <p class="hint-text">基础设定信息</p>
+                    </div>
+                </div>
+
+                <!-- 角色信息 -->
+                <div class="context-section">
+                    <h4>👥 主要角色详细设定（前15000字 + 数据统计）</h4>
+                    <div class="context-content" id="contextCharacters">
+                        <p class="hint-text">角色设定信息及数据统计</p>
+                    </div>
+                </div>
+
+                <!-- 前文摘要 -->
+                <div class="context-section">
+                    <h4>📖 前文摘要（10万字上下文范围）</h4>
+                    <div class="context-content" id="contextPrevious">
+                        <p class="hint-text">前面章节的内容摘要（最多10万字）</p>
+                    </div>
+                </div>
+
+                <!-- 完整大纲 -->
+                <div class="context-section">
+                    <h4>📋 完整章节大纲</h4>
+                    <div class="context-content" id="contextOutline">
+                        <p class="hint-text">所有章节的标题列表</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-buttons">
+                <button id="closeContextBtn" class="btn btn-secondary">关闭</button>
+                <button id="copyContextBtn" class="btn btn-small">📋 复制全部上下文</button>
+            </div>
+
+            <p class="hint">💡 此信息将在创作章节时自动提供给AI，确保上下文连贯</p>
+        </div>
+    </div>
+
+    <!-- 角色数据管理模态框 -->
+    <div id="characterStatsModal" class="modal">
+        <div class="modal-content character-stats-modal">
+            <h3>📊 角色数据管理</h3>
+            <p>管理角色的详细数据统计，包括年龄、等级、能量、技能等</p>
+
+            <!-- 角色列表 -->
+            <div class="character-stats-section">
+                <div class="section-header">
+                    <h4>📋 角色列表</h4>
+                    <button id="addNewCharacterBtn" class="btn btn-primary btn-small">➕ 添加新角色</button>
+                </div>
+                <div id="characterStatsList" class="character-stats-list">
+                    <div class="empty-state">
+                        <p>还没有添加任何角色数据</p>
+                        <p class="hint-text">点击"添加新角色"开始录入角色数据统计</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 角色编辑表单 -->
+            <div id="characterStatsForm" class="character-stats-form" style="display: none;">
+                <h4 id="formTitle">✏️ 编辑角色数据</h4>
+
+                <div class="form-group">
+                    <label>角色名称：</label>
+                    <input type="text" id="charName" placeholder="输入角色名称">
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>年龄：</label>
+                        <input type="text" id="charAge" placeholder="例如：18、未知">
+                    </div>
+                    <div class="form-group">
+                        <label>等级：</label>
+                        <input type="text" id="charLevel" placeholder="例如：LV50、筑基期">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>能量/实力：</label>
+                    <input type="text" id="charPower" placeholder="例如：5000点灵力、S级异能者">
+                </div>
+
+                <div class="form-group">
+                    <label>技能（多个技能用顿号或逗号分隔）：</label>
+                    <textarea id="charSkills" rows="2" placeholder="例如：火球术、御剑飞行、隐身术"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>重要道具/卡片（多个道具用顿号或逗号分隔）：</label>
+                    <textarea id="charItems" rows="2" placeholder="例如：天罡剑、传送符、时空戒指"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>金手指/特殊能力：</label>
+                    <input type="text" id="charGoldenFinger" placeholder="例如：系统、重生记忆、透视眼">
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>当前状态：</label>
+                        <input type="text" id="charStatus" placeholder="例如：受伤、突破中">
+                    </div>
+                    <div class="form-group">
+                        <label>当前位置：</label>
+                        <input type="text" id="charLocation" placeholder="例如：天元城、修炼室">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>人际关系（格式：关系类型=人名1、人名2）：</label>
+                    <textarea id="charRelations" rows="3" placeholder="例如：&#10;朋友=张三、李四&#10;敌人=王五&#10;师父=云中子"></textarea>
+                    <small class="hint-text">每行一种关系类型，等号后面是相关人物，多人用顿号或逗号分隔</small>
+                </div>
+
+                <div class="form-actions">
+                    <button id="saveCharacterStatsBtn" class="btn btn-success">💾 保存角色</button>
+                    <button id="cancelCharacterStatsBtn" class="btn btn-secondary">取消</button>
+                </div>
+            </div>
+
+            <div class="modal-buttons">
+                <button id="closeCharacterStatsBtn" class="btn btn-secondary">关闭</button>
+            </div>
+
+            <p class="hint">角色数据将在章节创作时提供给AI，帮助保持角色设定的一致性</p>
+        </div>
+    </div>
+
+    <script src="pdf-library.js?v=5.5"></script>
+    <script src="brainstorm.js?v=5.5"></script>
+    <script src="creative-tools.js?v=5.5"></script>
+    <script src="data-manager.js?v=5.5"></script>
+    <script src="script.js?v=5.5"></script>
+</body>
+</html>
